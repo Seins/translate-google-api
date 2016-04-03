@@ -22,15 +22,14 @@ public class GoogleTranslateApiController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleTranslateApiController.class);
 
     /**
-     *
-     * @param modelMap 数据容器
-     * @param value 待翻译的文字
-     * @param lang 当前语言
+     * @param modelMap   数据容器
+     * @param value      待翻译的文字
+     * @param lang       当前语言
      * @param targetLang 翻译目标语言
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/{lang}/{targetLang}", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/{lang}/{targetLang}", produces = "application/json; charset=utf-8")
     public String translate(ModelMap modelMap, @RequestParam(value = "value") String value,
                             @PathVariable(value = "lang") String lang,
                             @PathVariable(value = "targetLang") String targetLang) {
@@ -43,7 +42,7 @@ public class GoogleTranslateApiController extends BaseController {
             data.put("lang", lang);
             data.put("target lang", targetLang);
 
-            String result = SimpleTranslate.translate(value,targetLang,lang);
+            String result = SimpleTranslate.translate(value, targetLang, lang);
             if (StringUtils.isEmpty(result)) {
                 throw new RuntimeException("translate failed!");
             }
